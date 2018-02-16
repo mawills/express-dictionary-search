@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+  padding: 15px;
+}
+
+.nav > a > img {
+  margin: 5px;
+  height: 40px;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
