@@ -7,15 +7,6 @@ import WordList from './components/word_list';
 import SearchHistory from './components/search_history';
 import searchHistoryStorage from './getSearchHistory';
 
-/* oxford dictionaries api info
-const APP_ID = '7d64b4c4';
-const API_KEY = 'a038417f5a31b680504fdad206a4e3f6';
-const ROOT_URL = 'https://od-api.oxforddictionaries.com:443/api/v1';*/
-
-// my-little-cors-proxy is a workaround for working with remote APIs that
-// don't stamp the responses with a relaxed Access-Control-Allow-Origin.
-const ROOT_URL = 'https://my-little-cors-proxy.herokuapp.com/https://owlbot.info//api/v2/dictionary';
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -59,26 +50,22 @@ class App extends Component {
   }
 
   _lookupWord(word) {
-    const url = `${ROOT_URL}/${word}?format=json`;
-    axios.get(url)
-      .then((response) => {
-        if(response.status === 200) {
-          if(response.data.length > 0) {
+      fetch('http://localhost:3002/', {word: 'fox'})
+        .then(res => res.json())
+        .then(res => {
+          if(res) {
             let newWordsArray = this.state.words;
             newWordsArray.push({
               word: word,
-              definition: response.data[0].definition
+              definition: res.lexicalEntries[0].entries[0].senses[0].definitions
             });
             this.setState({ words: newWordsArray });
           }
           else {
             this.setState({ missingWords: this.state.missingWords.concat(word) });
           }
-        }
-      })
-      .catch((error) => {
-        this.setState({ missingWords: this.state.missingWords.concat(word) });
-      });
+        })
+        .catch(res => console.log(res));
   }
 
   render() {
