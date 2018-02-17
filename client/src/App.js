@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import './App.css';
 import SearchBar from './components/search_bar';
 import TabList from './components/tab_list';
@@ -50,14 +49,23 @@ class App extends Component {
   }
 
   _lookupWord(word) {
-      fetch('http://localhost:3002/', {word: 'fox'})
+      fetch('http://localhost:3002/', {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          word: word
+        })
+      })
         .then(res => res.json())
         .then(res => {
-          if(res) {
+          if(res.status !== 404) {
             let newWordsArray = this.state.words;
             newWordsArray.push({
               word: word,
-              definition: res.lexicalEntries[0].entries[0].senses[0].definitions
+              definition: res.data.results[0].lexicalEntries[0].entries[0].senses[0].definitions
             });
             this.setState({ words: newWordsArray });
           }
