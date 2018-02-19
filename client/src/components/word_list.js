@@ -14,9 +14,9 @@ const WordList = (props) => {
     );
   });
 
-  const missingWords = props.missingWords.map( (word) => {
+  const missingWords = props.missingWords.map( (word,index) => {
     return(
-      <span className="red">{word} </span>
+      <span className="red" key={index}>{word}</span>
     );
   });
 

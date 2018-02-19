@@ -8,7 +8,7 @@ class TabList extends Component {
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <ul className="nav navbar-nav">
-            <a target="_blank" rel="noopener noreferrer" href="https://github.com/mawills/dictionary-search">
+            <a target="_blank" rel="noopener noreferrer" href="https://github.com/mawills/express-dictionary-search">
               <img alt="GitHub" className="github-logo" src={githubLogo} />
             </a>
           </ul>
